@@ -19,6 +19,8 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,16 +44,20 @@ public class User implements UserDetails{
 	private String userId;
 	
 	@Column(name = "first_name")
+	@NotEmpty(message = "firstName cannot be empty")
 	private String firstName;
 	
 	@Column(name = "last_name")
+	@NotEmpty(message = "lastName cannot be empty")
 	private String lastName;
 	
+	@Column(name = "email",unique = true)
+	@Email(message = "Please provide a valid email address")
 	private String email;
 	
 	private String password;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private Set<Task> tasks = new HashSet<>();
 	

@@ -14,6 +14,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/*
+ * Custom filter class which is executed for each HTTP request. User eligibility 
+ * can be checked based on request URI and Authorization Header 
+ */
 @Component
 public class UserElegibilityFilter extends OncePerRequestFilter{
 	
