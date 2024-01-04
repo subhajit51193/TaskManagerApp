@@ -27,6 +27,16 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;
 	
+	/*
+	 * Create a task
+	 * 
+	 * @param: Task -> Task object with details
+	 * @param: HttpServletRequest -> to get email via attribute of logged in user
+	 * 
+	 * @return: ResponseEntity -> Containing customized string
+	 * 
+	 * @throws: InvalidTaskException -> if task is not valid 
+	 */
 	@PostMapping("/create")
 	public ResponseEntity<String> createTaskHandler(@RequestBody Task task,HttpServletRequest request) throws InvalidTaskException{
 		
@@ -35,6 +45,13 @@ public class TaskController {
 		return new ResponseEntity<String>(res,HttpStatus.ACCEPTED);
 	}
 	
+	/*
+	 * Gets all task for a user
+	 * 
+	 * @param: HttpServletRequest -> to get email via attribute of logged in user
+	 * 
+	 * @return: ResponseEntity -> Containing set of tasks 
+	 */
 	@GetMapping("/all")
 	public ResponseEntity<Set<Task>> getAllTasksByUserHandler(HttpServletRequest request){
 		
@@ -43,6 +60,16 @@ public class TaskController {
 		return new ResponseEntity<Set<Task>>(tasks,HttpStatus.OK);
 	}
 	
+	/*
+	 * Gets a task based on taskId
+	 * 
+	 * @param: String -> TaskId 
+	 * @param: HttpServletRequest -> to get email via attribute of logged in user
+	 * 
+	 * @return: ResponseEntity -> Containing Task object
+	 * 
+	 * @throws: InvalidTaskException -> if task is not valid or not found
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<Task> getTaskByIdUserHandler(@PathVariable String id,HttpServletRequest request) throws InvalidTaskException{
 		
@@ -51,6 +78,16 @@ public class TaskController {
 		return new ResponseEntity<Task>(task,HttpStatus.OK);
 	}
 	
+	/*
+	 * Deletes a task based on taskId
+	 * 
+	 * @param: String -> TaskId
+	 * @param: HttpServletRequest -> to get email via attribute of logged in user
+	 * 
+	 * @return: ResponseEntity -> Containing customized string
+	 * 
+	 * @throws: InvalidTaskException -> if task is not valid or not found
+	 */
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteTaskByTaskIdUserHandler(@PathVariable String id,HttpServletRequest request) throws InvalidTaskException{
 		
@@ -59,6 +96,17 @@ public class TaskController {
 		return new ResponseEntity<String>(res,HttpStatus.ACCEPTED);
 	}
 	
+	/*
+	 * Updates a task
+	 * 
+	 * @param: String -> taskID
+	 * @param: Task -> Task object with details
+	 * @param: HttpServletRequest -> to get email via attribute of logged in user
+	 * 
+	 * @return: ResponseEntity -> Containing customized string
+	 * 
+	 * @throws: InvalidTaskException -> if task is not valid or not found
+	 */
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> updateTaskUserHandler(@PathVariable String id,@RequestBody Task task,HttpServletRequest request) throws InvalidTaskException{
 		

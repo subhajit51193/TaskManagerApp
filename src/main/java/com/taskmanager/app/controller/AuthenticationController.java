@@ -25,6 +25,16 @@ public class AuthenticationController {
 	@Autowired
 	private AuthenticationService authenticationService;
 	
+	/*
+	 * Registers a new users based on provided information
+	 * 
+	 * @param: User -> User object with details
+	 * @param: HttpServeletResponse -> to add cookie details
+	 * 
+	 * @return: ResponseEntity -> Containing customized authentication response
+	 * 
+	 * @throws: UserDetailsNotValidException -> if details not valid
+	 */
 	@PostMapping("/api/register")
 	public ResponseEntity<AuthenticationResponse> registerUserHandler(@RequestBody User user,HttpServletResponse response) throws UserDetailsNotValidException{
 		
@@ -32,6 +42,14 @@ public class AuthenticationController {
 		return new ResponseEntity<AuthenticationResponse>(authenticationResponse,HttpStatus.OK);
 	}
 	
+	/*
+	 * Authenticates a new users based on provided information
+	 * 
+	 * @param: Request -> Authentication request containing email and password
+	 * @param: HttpServeletResponse -> to add cookie details
+	 * 
+	 * @return: ResponseEntity -> Containing customized authentication response
+	 */
 	@PostMapping("/api/authenticate")
 	public ResponseEntity<AuthenticationResponse> authenticateUserHandler(Authentication authentication,HttpServletResponse response){
 		

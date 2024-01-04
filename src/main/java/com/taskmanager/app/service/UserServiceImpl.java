@@ -1,6 +1,7 @@
 package com.taskmanager.app.service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -13,7 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.taskmanager.app.entity.Role;
+import com.taskmanager.app.entity.Task;
 import com.taskmanager.app.entity.User;
+import com.taskmanager.app.repository.TaskRepository;
 import com.taskmanager.app.repository.UserRepository;
 
 @Service
@@ -21,6 +24,9 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private TaskRepository taskRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -41,9 +47,20 @@ public class UserServiceImpl implements UserService,UserDetailsService{
             }
             
             System.out.println("granted authorities "+authorities);
-            
             return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
         }
+	}
+
+	@Override
+	public Set<Task> getAlltasksFromDb() {
+		
+		List<Task> list =  taskRepository.findAll();
+		Set<Task> allTasks = new HashSet<>();
+		for(Task task: list) {
+			allTasks.add(task);
+		}
+		return allTasks;
+			
 	}
 
 }

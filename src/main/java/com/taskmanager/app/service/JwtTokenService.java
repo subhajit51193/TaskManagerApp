@@ -2,6 +2,7 @@ package com.taskmanager.app.service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -23,6 +24,7 @@ public class JwtTokenService {
 	@Autowired
 	private JwtDecoder decoder;
 	
+	
 	/*
 	 * Generates AccessToken
 	 * 
@@ -39,6 +41,7 @@ public class JwtTokenService {
 				.issuedAt(now)
 				.expiresAt(now.plus(1,ChronoUnit.HOURS))
 				.subject(email)
+				 .claim("roles", Collections.singletonList("ROLE_ADMIN"))
 				.build();
 		return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 	}
@@ -59,6 +62,7 @@ public class JwtTokenService {
 				.issuedAt(now)
 				.expiresAt(now.plus(7,ChronoUnit.DAYS))
 				.subject(email)
+				.claim("roles", Collections.singletonList("ROLE_ADMIN"))
 				.build();
 		return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 	}

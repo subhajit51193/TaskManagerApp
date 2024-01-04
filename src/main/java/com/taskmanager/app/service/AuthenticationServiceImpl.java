@@ -72,14 +72,14 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 			
 			Optional<Role> opt = roleRepository.findByRoleName("ROLE_USER");
 			
-			//If default role is not saved in DB then new will be created
+			//If already role exists then taht role will be to user as default
 			if (opt.isPresent()) {
 				
 				Role role = opt.get();
 				roles.add(role);
 			}
 			
-			//If default role is saved then existing role will be added with the user
+			//If no role exists then new role will be created and will be added to user as default role
 			else {
 				
 				Role role = new Role();
@@ -88,24 +88,29 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		        roles.add(role);
 			}   
 	    }
-		
-		//setting common values and save the data
-		
-		for (Role role : roles) {
+		else {
 			
-			Optional<Role> opt = roleRepository.findByRoleName(role.getRoleName());
+			//setting common values and save the data
 			
-			//if role is already present then updating it to avoid duplicate object
-			if (opt.isPresent()) {
+			for (Role role : roles) {
 				
-				Role existingRole = opt.get();
-				role.setRoleId(existingRole.getRoleId());
-			}
-			else {
-				
-				role.setRoleId(helper.createRandomStringId());
+				Optional<Role> opt = roleRepository.findByRoleName(role.getRoleName());
+				//if role is already present then updating it to avoid duplicate object
+				if (opt.isPresent()) {
+					
+					Role existingRole = opt.get();
+					role.setRoleId(existingRole.getRoleId());
+					role.setRoleName(existingRole.getRoleName());
+				}
+				else {
+					
+					role.setRoleId(helper.createRandomStringId());
+					role.setRoleName(role.getRoleName());
+				}
 			}
 		}
+		
+
 		
 		//finally setting all data with user and save
 		user.setRoles(roles);

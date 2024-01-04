@@ -1,5 +1,6 @@
 package com.taskmanager.app.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -9,6 +10,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.taskmanager.app.filter.UserElegibilityFilter;
 
 /**
  * This class contains security configuration of the application
@@ -16,6 +20,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
+	@Autowired
+	private UserElegibilityFilter userElegibilityFilter;
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -28,6 +35,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests((auth) -> auth
 					.requestMatchers("/api/register").permitAll()
 					.requestMatchers("/api/authenticate").permitAll()
+					.requestMatchers("/api/admin/allTasks").hasRole("ADMIN")
 					.anyRequest().authenticated()
 			)
 			.httpBasic((basic) -> Customizer.withDefaults());
@@ -44,6 +52,8 @@ public class SecurityConfig {
 				ex.authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint());
 				ex.accessDeniedHandler(new BearerTokenAccessDeniedHandler());
 			});
+		
+		http.addFilterAfter(userElegibilityFilter, UsernamePasswordAuthenticationFilter.class);
 		
 		return http.build();
 	}
