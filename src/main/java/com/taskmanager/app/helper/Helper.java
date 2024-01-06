@@ -46,7 +46,7 @@ public class Helper {
         
         Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
         refreshTokenCookie.setMaxAge(24 * 60 * 60 * 1000 * 7);
-        accessTokenCookie.setDomain("localhost");
+        refreshTokenCookie.setDomain("localhost");
         refreshTokenCookie.setHttpOnly(true);
         refreshTokenCookie.setPath("/");
         

@@ -19,7 +19,7 @@ import com.taskmanager.app.service.AuthenticationService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3001"})
+//@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3001"})
 
 @RestController
 public class AuthenticationController {

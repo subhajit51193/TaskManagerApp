@@ -30,8 +30,9 @@ public class SecurityConfig {
 		http
 			.csrf((csrf) ->
 					csrf.disable())
-			.cors((cors) ->
-					cors.disable())
+//			.cors((cors) ->
+//					cors.disable())
+			.cors(Customizer.withDefaults())
 			.authorizeHttpRequests((auth) -> auth
 					.requestMatchers("/api/register").permitAll()
 					.requestMatchers("/api/authenticate").permitAll()
