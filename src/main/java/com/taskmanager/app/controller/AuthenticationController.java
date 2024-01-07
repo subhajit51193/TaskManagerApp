@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +18,6 @@ import com.taskmanager.app.service.AuthenticationService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-//@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3001"})
 
 @RestController
 public class AuthenticationController {
@@ -59,6 +57,13 @@ public class AuthenticationController {
 		return new ResponseEntity<AuthenticationResponse>(authenticationResponse,HttpStatus.OK);
 	}
 	
+	/*
+	 * Logout a user
+	 * 
+	 * @param: Request -> LogoutRequest object containing userEmail,accessTken and refreshToken
+	 * @param: HttpServletResponse -> to add cookie details
+	 * @param: HttpServletRequest -> to get cookie details
+	 */
 	@PostMapping("/api/logout")
 	public ResponseEntity<MessageResponse> logoutUserHandler(@RequestBody LogoutRequest logoutRequest, HttpServletResponse response, HttpServletRequest request){
 		
