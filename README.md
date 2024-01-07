@@ -8,6 +8,7 @@ A task manager app where user can register and signin and create,update and dele
 
 - Register
 - Login
+- Logout
 - Create task
 - Get Task
 - Update task
@@ -23,7 +24,7 @@ A task manager app where user can register and signin and create,update and dele
 ```http
   https://documenter.getpostman.com/view/24254665/2s9YsGhDQU
 ```
-## Configurations
+## Configurations Backend
 
 Check following configurations Change DB details accordingly
 
@@ -49,18 +50,21 @@ logging.level.org.springframework.security=DEBUG
 
 ```
     
-## Run Locally
+## Run Locally Backend
 
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/subhajit51193/TaskManagerApp
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd TaskManagerApp
+```
+```bash
+  cd BackEnd
 ```
 
 Install dependencies
@@ -75,6 +79,34 @@ Start the server
   mvn spring-boot:run
 ```
 
+## Run Locally Frontend
+
+Clone the project
+
+```bash
+  git clone https://github.com/subhajit51193/TaskManagerApp
+```
+
+Go to the project directory
+
+```bash
+  cd TaskManagerApp
+```
+```bash
+  cd FrontEnd
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
 
 ## Deployment
 
@@ -84,7 +116,7 @@ Not Deployed
 
 ## Tech Stack
 
-**Client:** Java, SpringBoot
+**Client:** Java, SpringBoot,JavaScript,React,TailwindCSS
 
 **DataBase:** MySQL
 
